@@ -7,7 +7,7 @@ from webapp.model import db, News
 def get_html(url):
     try:
         result = requests.get(url)
-        result.raise_for_status()
+        result.raise_for_status()   # нужна для того, чтобы проверить, понял вас сервер или нет. Если сервер вернёт 404 «Ресурс не найден»
         return result.text
     except(requests.RequestException, ValueError):
         print("Сетевая ошибка")
@@ -20,7 +20,7 @@ def get_python_news():
         all_news = soup.find('ul', class_='list-recent-posts').find_all('li')
         # all_news = all_news.find_all('li')
         result_news = []
-        for news in all_news:  #пробежались по списку нашли 'a' дальщше text и вывели
+        for news in all_news:  #пробежались по списку нашли 'a' дальше text и вывели
             title = news.find('a').text
             url = news.find('a')['href']
             published = news.find('time').text
